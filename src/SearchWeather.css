@@ -1,4 +1,21 @@
+.SearchWeather h1 {
+    font-size: 65px;
+}
+
 .SearchWeather input {
-  padding: 8px;
-  font-size: 14px;
+  padding: 5px 150px 5px 5px;
+  font-size: 16px;
+}
+
+.SearchWeather ul {
+  padding: 0px;
+  list-style: none;
+}
+
+.SearchWeather .temperatureUpdates {
+    justify-content: flex-start;
+}
+
+.SearchWeather .forecast {
+    text-align: center;
 }

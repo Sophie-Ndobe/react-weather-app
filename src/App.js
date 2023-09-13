@@ -4,7 +4,9 @@ import SearchWeather from "./SearchWeather";
 function App() {
   return (
     <div className="App">
-      <SearchWeather />
+      <div className="inner">
+        <SearchWeather />
+      </div>
     </div>
   );
 }

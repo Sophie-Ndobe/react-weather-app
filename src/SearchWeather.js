@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./SearchWeather.css";
 
 export default function SearchWeather() {
-  let [city, setCity] = useState(" ");
-  
+const [city, setCity] = useState(" ");
+
 
   function handleSubmit(event) {
     event.preventDefault();

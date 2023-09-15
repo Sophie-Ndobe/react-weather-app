@@ -6,8 +6,40 @@ export default function SearchWeather() {
   const [city, setCity] = useState(" ");
   const [weather, setWeather] = useState(" ");
 
+  let currentDate = new Date();
+
+  let hours = currentDate.getHours();
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+
+  let minutes = currentDate.getMinutes();
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let day = days[currentDate.getDay()];
+
   function displayWeather(response) {
-    console.log(response);
+    setWeather({
+      temperature: response.data.main.temp,
+      humidity: response.data.main.humidity,
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
+      wind: response.data.wind.speed,
+    });
   }
 
   function handleSubmit(event) {
@@ -37,7 +69,9 @@ export default function SearchWeather() {
       </form>
       <h2 className="mt-3">Paris</h2>
       <ul>
-        <li>Wednesday 13:53</li>
+        <li>
+          {day} {hours}:{minutes}
+        </li>
         <li>Clouds</li>
       </ul>
 
@@ -48,8 +82,8 @@ export default function SearchWeather() {
         </div>
         <div className="col-6">
           <ul>
-            <li>Precipitation: 60%</li>
-            <li>Wind: 4km/h</li>
+            <li>Humidity: {weather.humidity} %</li>
+            <li>Wind: {weather.wind} km/h</li>
           </ul>
         </div>
       </div>

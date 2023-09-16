@@ -32,6 +32,19 @@ export default function SearchWeather() {
 
   let day = days[currentDate.getDay()];
 
+  function formatDay(time) {
+    let date = new Date(time * 1000);
+    let day = date.getDay();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    return days[day];
+  }
+
+  function fetchWeatherForecast(coordinates) {
+    let lat = coordinates.latitude
+    let long = coordinates.longitude
+  }
+
   function displayWeather(response) {
     setWeather({
       temperature: response.data.main.temp,
@@ -40,6 +53,8 @@ export default function SearchWeather() {
       icon: response.data.weather[0].icon,
       wind: response.data.wind.speed,
     });
+
+     fetchWeatherForecast(response.data.coordinates);
   }
 
   function handleSubmit(event) {
@@ -52,6 +67,7 @@ export default function SearchWeather() {
   function updateCity(event) {
     setCity(event.target.value);
   }
+
   return (
     <div className="SearchWeather">
       <form onSubmit={handleSubmit}>
@@ -72,7 +88,7 @@ export default function SearchWeather() {
         <li>
           {day} {hours}:{minutes}
         </li>
-        <li>Clouds</li>
+        <li>{weather.description}</li>
       </ul>
 
       <div className="row">

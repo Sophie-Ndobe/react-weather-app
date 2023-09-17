@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./SearchWeather.css";
 import axios from "axios";
 
+import WeatherForecast from "./WeatherForecast";
+
 export default function SearchWeather() {
   const [city, setCity] = useState(" ");
   const [weather, setWeather] = useState(" ");
@@ -32,17 +34,25 @@ export default function SearchWeather() {
 
   let day = days[currentDate.getDay()];
 
-  function formatDay(time) {
-    let date = new Date(time * 1000);
-    let day = date.getDay();
+  function displayWeatherForecast(response) {
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    // let dailyForecast = response.data.dailyForecast;
 
-    return days[day];
+    return (
+      <ul>
+        {days.map(function (day, index) {
+          returns(<li key={index}>{day}</li>);
+        })}
+      </ul>
+    );
   }
-
   function fetchWeatherForecast(coordinates) {
-    let lat = coordinates.latitude
-    let long = coordinates.longitude
+    let lat = coordinates.latitude;
+    let lon = coordinates.longitude;
+    let apiKey = "8342a5044534040e24d2802ce4fcc6ac";
+    let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
+
+    axios.get(forecastApiUrl).then(displayWeatherForecast);
   }
 
   function displayWeather(response) {
@@ -54,7 +64,7 @@ export default function SearchWeather() {
       wind: response.data.wind.speed,
     });
 
-     fetchWeatherForecast(response.data.coordinates);
+    fetchWeatherForecast(response.data.coordinates);
   }
 
   function handleSubmit(event) {
@@ -90,7 +100,6 @@ export default function SearchWeather() {
         </li>
         <li>{weather.description}</li>
       </ul>
-
       <div className="row">
         <div className="col-6 d-flex temperatureUpdates">
           <img src="https://ssl.gstatic.com/onebox/weather/64/sunny_s_cloudy.png" />
@@ -103,7 +112,7 @@ export default function SearchWeather() {
           </ul>
         </div>
       </div>
-
+      <WeatherForecast />
       <div className="forecast">
         <div className="row">
           <div className="col">
